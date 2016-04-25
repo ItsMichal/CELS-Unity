@@ -18,10 +18,10 @@ public class Factions : MonoBehaviour {
 		this.FacColor = FacColor;
 		this.boids = boids;
 
-		for(int i = 0; i < 10; i++)
-		members.Add(Instantiate(boids,headQuartersloc,Quaternion.identity)as GameObject);
-
-
+		for(int i = 0; i < 1; i++){
+			addMember(headQuartersloc);
+		
+		}
 
 	}
 
@@ -43,6 +43,14 @@ public class Factions : MonoBehaviour {
 	public void setTarget(ArrayList objects){
 
 		targets = objects;
+	}
+
+	public void addMember(Vector3 loc){
+		GameObject buf = Instantiate(boids,loc,Quaternion.identity) as GameObject;
+
+		(buf.GetComponent<CellNav>() as CellNav).setColor(FacColor);
+		members.Add(buf);
+
 	}
 
 

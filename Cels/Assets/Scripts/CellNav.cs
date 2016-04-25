@@ -4,8 +4,8 @@ using System.Collections;
 public class CellNav : MonoBehaviour {
 
 	public GameObject goal;
-	private GameObject body;
 
+	public Color color;
 
 	public bool watching = false;
 
@@ -13,9 +13,10 @@ public class CellNav : MonoBehaviour {
 
 	private float FoodEat = 0;
 
-	public CellNav(Color c){
+	public CellNav(){
 
-		body = GameObject.Find("Cylinder") as GameObject;
+
+
 
 	}
 
@@ -28,6 +29,8 @@ public class CellNav : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		transform.FindChild("Cylinder").GetComponent<Renderer>().material.color = color;
+
 		if(goal != null){
 			NavMeshAgent agent = GetComponent<NavMeshAgent>();
 			agent.destination = goal.transform.position;
@@ -73,4 +76,10 @@ public class CellNav : MonoBehaviour {
 		}
 
 	}
+
+	public void setColor(Color col){
+		color = col;
+
+	}
+
 }
