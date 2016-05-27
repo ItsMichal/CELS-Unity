@@ -39,9 +39,15 @@ public class SimControl: MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		foreach(GameObject food in foodList)
-				if(food == null)
+
+		for(int i = 0; i < foodList.Count; i++){
+			GameObject food = foodList[i] as GameObject;
+				if(food == null){
+				Debug.Log(food);
 				foodList.Remove(food);
+			}
+		}
+
 
 		foreach(Factions facs in fac){
 			facs.setTarget(foodList);

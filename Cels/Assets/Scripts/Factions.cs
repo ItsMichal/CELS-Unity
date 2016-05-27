@@ -30,11 +30,23 @@ public class Factions : MonoBehaviour {
 		Debug.Log("Fractions-Member-Update");
 		foreach(GameObject cel in members){
 			
-			CellNav cell = cel.GetComponent<CellNav>() as CellNav ;
-			if(cell.goal == null){
+			CellNav cell = cel.GetComponent<CellNav>() as CellNav;
+			if(cell.goal == null && targets.Count >= 1){
 
-				cell.setTarget(targets[0] as GameObject);
-				targets.RemoveAt(0);
+				GameObject f = targets[0] as GameObject;
+				float dist = Vector3.Distance(cel.transform.position,f.transform.position);
+				foreach(GameObject t in targets)
+				{
+					if(Vector3.Distance(cel.transform.position,(t as GameObject).transform.position) < dist){
+
+						f = t as GameObject;
+						dist = Vector3.Distance(cel.transform.position,(t as GameObject).transform.position);
+					}
+
+				}
+				
+				cell.setTarget(f);
+				targets.Remove(f);
 			}
 			
 		}

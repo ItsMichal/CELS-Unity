@@ -13,6 +13,8 @@ public class CellNav : MonoBehaviour {
 
 	private float FoodEat = 0;
 
+	static NavMeshAgent agent;
+
 	public CellNav(){
 
 
@@ -22,7 +24,7 @@ public class CellNav : MonoBehaviour {
 
 
 	public void setTarget(GameObject target){
-		Debug.Log("update");
+
 		goal = target;
 
 	}
@@ -31,13 +33,12 @@ public class CellNav : MonoBehaviour {
 	
 		transform.FindChild("Cylinder").GetComponent<Renderer>().material.color = color;
 
+
+
 		if(goal != null){
-			NavMeshAgent agent = GetComponent<NavMeshAgent>();
+			agent = GetComponent<NavMeshAgent>();
 			agent.destination = goal.transform.position;
 
-			if(Vector3.Distance(goal.transform.position,this.transform.position) <= 5){
-				//goal = null;
-			}
 
 		}
 
@@ -66,6 +67,8 @@ public class CellNav : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 
 		if(other.gameObject.tag == "Food"){
+
+			Destroy(other);
 			Destroy(other.gameObject);
 			goal = null;
 			FoodEat += 0.1f;
