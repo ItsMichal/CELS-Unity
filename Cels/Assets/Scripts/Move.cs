@@ -24,7 +24,7 @@ public class Move : MonoBehaviour {
 
 		
 		}
-		target.y = 7f;
+		target.y = 100f;
 	
 
 

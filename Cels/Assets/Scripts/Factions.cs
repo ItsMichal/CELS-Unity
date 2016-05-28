@@ -6,7 +6,7 @@ public class Factions : MonoBehaviour {
 	private string name;
 	private Color FacColor;
 	private GameObject boids;
-
+	public int foodbound = 10;
 
 	ArrayList targets = new ArrayList();
 	ArrayList members = new ArrayList();
@@ -61,6 +61,7 @@ public class Factions : MonoBehaviour {
 		GameObject buf = Instantiate(boids,loc,Quaternion.identity) as GameObject;
 
 		(buf.GetComponent<CellNav>() as CellNav).setColor(FacColor);
+		(buf.GetComponent<CellNav>() as CellNav).setfac(this);
 		members.Add(buf);
 
 	}

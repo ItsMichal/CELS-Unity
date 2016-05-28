@@ -11,9 +11,13 @@ public class CellNav : MonoBehaviour {
 
 	Vector3[] array = new Vector3[3];
 
-	private float FoodEat = 0;
+
 
 	static NavMeshAgent agent;
+
+	public Factions fac;
+
+	public int food = 0;
 
 	public CellNav(){
 
@@ -22,6 +26,9 @@ public class CellNav : MonoBehaviour {
 
 	}
 
+	public void setfac(Factions fac){
+		this.fac = fac;
+	}
 
 	public void setTarget(GameObject target){
 
@@ -54,6 +61,13 @@ public class CellNav : MonoBehaviour {
 
 		}
 
+		if(food == fac.foodbound){
+
+			food = 0;
+			fac.addMember(this.transform.position);
+			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f * food,.5f * food,.5f * food);
+		}
+
 
 
 	}
@@ -68,13 +82,16 @@ public class CellNav : MonoBehaviour {
 
 		if(other.gameObject.tag == "Food"){
 
+			if(other == goal)
+				goal = null;
+
 			Destroy(other);
 			Destroy(other.gameObject);
-			goal = null;
-			FoodEat += 0.1f;
-			transform.FindChild("Cylinder").transform.localScale += new Vector3(.5f,0f,.5f);
-
-
+			other = null;
+			food++;
+			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f * food,.5f * food,.5f * food);
+			GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2; 
+		
 
 		}
 
