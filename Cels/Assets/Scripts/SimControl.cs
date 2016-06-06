@@ -43,7 +43,7 @@ public class SimControl: MonoBehaviour {
 		for(int i = 0; i < foodList.Count; i++){
 			GameObject food = foodList[i] as GameObject;
 				if(food == null){
-				Debug.Log(food);
+
 				foodList.Remove(food);
 			}
 		}

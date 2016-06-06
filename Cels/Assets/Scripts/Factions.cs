@@ -27,7 +27,7 @@ public class Factions : MonoBehaviour {
 
 	public void Update (){
 
-		Debug.Log("Fractions-Member-Update");
+
 		foreach(GameObject cel in members){
 			
 			CellNav cell = cel.GetComponent<CellNav>() as CellNav;
@@ -37,7 +37,7 @@ public class Factions : MonoBehaviour {
 				float dist = Vector3.Distance(cel.transform.position,f.transform.position);
 				foreach(GameObject t in targets)
 				{
-					if(Vector3.Distance(cel.transform.position,(t as GameObject).transform.position) < dist){
+					if(t != null && Vector3.Distance(cel.transform.position,(t as GameObject).transform.position) < dist){
 
 						f = t as GameObject;
 						dist = Vector3.Distance(cel.transform.position,(t as GameObject).transform.position);

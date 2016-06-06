@@ -50,7 +50,7 @@ public class CellNav : MonoBehaviour {
 		}
 
 		if(watching){
-
+			Debug.Log(""+ fac.foodbound);
 			Camera.main.orthographicSize = 5;
 			Vector3 buf = this.transform.position;
 			buf.y = 7f;
@@ -61,11 +61,11 @@ public class CellNav : MonoBehaviour {
 
 		}
 
-		if(food == fac.foodbound){
+		if(food >= fac.foodbound){
 
 			food = 0;
 			fac.addMember(this.transform.position);
-			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f * food,.5f * food,.5f * food);
+			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f ,.5f,.5f);
 		}
 
 

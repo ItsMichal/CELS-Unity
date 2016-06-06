@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Factions.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CellNav.cs">
     <Files>
+      <File FileName="Assets\Scripts\CellNav.cs" Line="96" Column="4" />
       <File FileName="Assets\Scripts\Move.cs" Line="27" Column="17" />
-      <File FileName="Assets\Scripts\Factions.cs" Line="9" Column="27" />
-      <File FileName="Assets\Scripts\SimControl.cs" Line="54" Column="7" />
-      <File FileName="Assets\Scripts\CellNav.cs" Line="63" Column="3" />
+      <File FileName="Assets\Scripts\Factions.cs" Line="30" Column="3" />
+      <File FileName="Assets\Scripts\SimControl.cs" Line="29" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
