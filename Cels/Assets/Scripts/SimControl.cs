@@ -26,7 +26,7 @@ public class SimControl: MonoBehaviour {
 		for(int i = 0; i < numFac; i++){
 
 
-			fac.Add ( new Factions(i+"",new Color(0.2F, 0.3F, 0.4F),new Vector3(0,0,0),cells));
+			fac.Add ( new Factions(i+"",new Color(Random.Range(0,5f),Random.Range(0,5f),Random.Range(0,5f)),new Vector3(0,0,0),cells));
 
 
 		}
@@ -39,9 +39,15 @@ public class SimControl: MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		foreach(GameObject food in foodList)
-				if(food == null)
+
+		for(int i = 0; i < foodList.Count; i++){
+			GameObject food = foodList[i] as GameObject;
+				if(food == null){
+				Debug.Log(food);
 				foodList.Remove(food);
+			}
+		}
+
 
 		foreach(Factions facs in fac){
 			facs.setTarget(foodList);
