@@ -2,22 +2,16 @@
 using System.Collections;
 
 public class CellNav : MonoBehaviour {
-
+	//Cell feilds
 	public GameObject goal;
-
 	public Color color;
-
 	public bool watching = false;
-
 	Vector3[] array = new Vector3[3];
-
 	static NavMeshAgent agent;
-
 	public Factions fac;
-
-	public float food = 0;
-
+	public float food = 10;
 	Vector3 last;
+
 
 	//CODE--------------------------------------------------------------------------------------------------
 	public void setfac(Factions fac){
@@ -36,7 +30,7 @@ public class CellNav : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f * food,.5f * food,.5f * food);
+		transform.FindChild("Cylinder").transform.localScale = new Vector3(food,food,food);
 		GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2;
 
 		transform.FindChild("Cylinder").GetComponent<Renderer>().material.color = color;
@@ -53,10 +47,10 @@ public class CellNav : MonoBehaviour {
 		}
 
 		if(watching){
-			Debug.Log(""+ fac.foodbound);
-			Camera.main.orthographicSize = 5;
+			//Debug.Log(""+ fac.foodbound);
+			Camera.main.orthographicSize = transform.FindChild("Cylinder").transform.localScale.x + 5;
 			Vector3 buf = this.transform.position;
-			buf.y = 7f;
+			buf.y = transform.FindChild("Cylinder").transform.localScale.y + 7f;
 			Camera.main.transform.position = buf;
 
 		}
@@ -66,7 +60,7 @@ public class CellNav : MonoBehaviour {
 
 		if(food >= fac.foodbound){
 
-			food = fac.foodbound/2;
+			food = 10;
 			fac.addMember(this.transform.position);
 			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f ,.5f,.5f);
 		}
@@ -93,7 +87,7 @@ public class CellNav : MonoBehaviour {
 			Destroy(other.gameObject);
 			other = null;
 			food++;
-			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f * food,.5f * food,.5f * food);
+			transform.FindChild("Cylinder").transform.localScale = new Vector3(food,food,food);
 			GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2; 
 		
 

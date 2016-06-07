@@ -62,7 +62,7 @@ public class Factions : MonoBehaviour {
 
 		(buf.GetComponent<CellNav>() as CellNav).setColor(FacColor);
 		(buf.GetComponent<CellNav>() as CellNav).setfac(this);
-		(buf.GetComponent<CellNav>() as CellNav).food = foodbound/2;
+		//(buf.GetComponent<CellNav>() as CellNav).food = foodbound/2;
 		members.Add(buf);
 
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SimControl: MonoBehaviour {
 
@@ -9,17 +10,19 @@ public class SimControl: MonoBehaviour {
 	public GameObject heaquarter;
 	public GameObject food;
 	public GameObject cells;
+	public Text UiTime;
 	public float spawnRate;
-
+	public long lastsec;
 
 	//factions
 	ArrayList fac = new ArrayList();
 	//food target
 	ArrayList foodList = new ArrayList();
 
+	Component time;
 
 	void Start () {
-
+		time = UiTime.GetComponent<Text>();
         //imported from old code
         //og colors list
         float[,] fcolors = { { 255, 0, 0 }, { 0, 255, 0 }, { 0, 0, 255 }, { 255, 255, 0 }, { 0, 255, 255 }, { 255, 0, 255 }, { 0, 0, 0 }, { 255, 255, 255 } };
@@ -33,7 +36,7 @@ public class SimControl: MonoBehaviour {
 
 			fac.Add ( new Factions(i+"",fc,new Vector3(0,0,0),cells));
 
-
+			//startsim();
 		}
 
 
@@ -44,7 +47,12 @@ public class SimControl: MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		//Debug.Log((int)(Time.time * 1000) - lastsec + " " + lastsec);
+		//set the UI Timer to the correct Time.
 
+		(time as Text).text = "Time: "+((int)(Time.time * 1000))+"";
+
+		/////////////////////////////////////
 		for(int i = 0; i < foodList.Count; i++){
 			GameObject food = foodList[i] as GameObject;
 				if(food == null){
@@ -58,6 +66,13 @@ public class SimControl: MonoBehaviour {
 			facs.setTarget(foodList);
 			facs.Update();
 		}
+
+	}
+
+
+	void startsim(){
+		lastsec = (int)(Time.time * 1000);
+
 
 	}
 

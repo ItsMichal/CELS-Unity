@@ -21,7 +21,7 @@ public class Move : MonoBehaviour {
 	void Update () {
 
 		Vector3 mo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		Debug.Log (mo.x + "," + mo.z);
+
 
 		if (Input.GetMouseButtonDown(0)) {
 		
