@@ -19,14 +19,19 @@ public class SimControl: MonoBehaviour {
 
 
 	void Start () {
-	
 
+        //imported from old code
+        //og colors list
+        float[,] fcolors = { { 255, 0, 0 }, { 0, 255, 0 }, { 0, 0, 255 }, { 255, 255, 0 }, { 0, 255, 255 }, { 255, 0, 255 }, { 0, 0, 0 }, { 255, 255, 255 } };
 
-		// generate starting factions
-		for(int i = 0; i < numFac; i++){
+        // generate starting factions
+        for (int i = 0; i < numFac; i++){
 
+            //Problem with colors generating white sometimes, on top
+            //not sure if lighting problem or code problem
+            Color fc = new Color(fcolors[i,0], fcolors[i,1], fcolors[i,2]);
 
-			fac.Add ( new Factions(i+"",new Color(Random.Range(0,5f),Random.Range(0,5f),Random.Range(0,5f)),new Vector3(0,0,0),cells));
+			fac.Add ( new Factions(i+"",fc,new Vector3(0,0,0),cells));
 
 
 		}

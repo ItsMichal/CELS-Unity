@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+//TODO: comment stuff pls
 public class Factions : MonoBehaviour {
 
 	private string name;
