@@ -10,6 +10,7 @@ public class Move : MonoBehaviour {
 	public float maxOrtho = 20.0f;
 	public float smoothSpeed = 2.0f;
 
+
 	Vector3 target = new Vector3(0f,7f,0f);
 
 
@@ -19,8 +20,15 @@ public class Move : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		Vector3 mo = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Debug.Log (mo.x + "," + mo.z);
+
 		if (Input.GetMouseButtonDown(0)) {
-			target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		
+
+					if(mo.x <= 34 && mo.x >= -35)
+						if(mo.z <= 34 && mo.z >= -35)
+							target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
 		
 		}

@@ -11,23 +11,21 @@ public class CellNav : MonoBehaviour {
 
 	Vector3[] array = new Vector3[3];
 
-
-
 	static NavMeshAgent agent;
 
 	public Factions fac;
 
-	public int food = 0;
+	public float food = 0;
 
-	public CellNav(){
+	Vector3 last;
 
-
-
-
-	}
-
+	//CODE--------------------------------------------------------------------------------------------------
 	public void setfac(Factions fac){
 		this.fac = fac;
+	}
+
+	public void start(){
+		last = this.transform.position;
 	}
 
 	public void setTarget(GameObject target){
@@ -37,8 +35,13 @@ public class CellNav : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-	
+
+		transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f * food,.5f * food,.5f * food);
+		GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2;
+
 		transform.FindChild("Cylinder").GetComponent<Renderer>().material.color = color;
+
+		food -= Vector3.Distance(transform.position,last) * 0.0001f; 
 
 
 
@@ -56,14 +59,14 @@ public class CellNav : MonoBehaviour {
 			buf.y = 7f;
 			Camera.main.transform.position = buf;
 
-
-
-
 		}
+
+
+
 
 		if(food >= fac.foodbound){
 
-			food = 0;
+			food = fac.foodbound/2;
 			fac.addMember(this.transform.position);
 			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f ,.5f,.5f);
 		}
@@ -71,6 +74,7 @@ public class CellNav : MonoBehaviour {
 
 
 	}
+
 	void OnMouseDown(){
 
 		watching = !watching;
