@@ -6,20 +6,21 @@ public class Factions : MonoBehaviour {
 	private string name;
 	private Color FacColor;
 	private GameObject boids;
-	public int foodbound = 15;
-
+	public int foodbound = 20;
+	public ArrayList enemy;
+	public SimControl control;
 	ArrayList targets = new ArrayList();
 	ArrayList members = new ArrayList();
 
 
-	public Factions(string name,Color FacColor, Vector3 headQuartersloc,GameObject boids){
+	public Factions(string name,Color FacColor, Vector3 headQuartersloc,GameObject boids,SimControl s){
 
 		this.name = name;
 		this.FacColor = FacColor;
 		this.boids = boids;
-
+		this.control = s;
 		for(int i = 0; i < 1; i++){
-			addMember(headQuartersloc,15);
+			addMember(headQuartersloc,10);
 		
 		}
 
@@ -27,7 +28,7 @@ public class Factions : MonoBehaviour {
 
 	public void Update (){
 
-
+		 enemy = control.mem();
 		foreach(GameObject cel in members){
 			
 			CellNav cell = cel.GetComponent<CellNav>() as CellNav;
@@ -47,14 +48,31 @@ public class Factions : MonoBehaviour {
 				
 				cell.setTarget(f);
 				targets.Remove(f);
+
 			}
-			
-		}
+
+			//passing the enemys to the cell
+			ArrayList buff = new ArrayList();
+			foreach(GameObject tar in enemy){
+
+				if(Vector3.Distance(tar.transform.position,cell.transform.position) < 20)
+					buff.Add(tar);
+
+			}
+
+			cell.enemy = buff;
+				}
+
 	}
 
 	public void setTarget(ArrayList objects){
 
 		targets = objects;
+	}
+	public void setEnemys(ArrayList objects){
+
+		enemy = objects;
+
 	}
 
 	public void addMember(Vector3 loc, int food){
@@ -62,9 +80,9 @@ public class Factions : MonoBehaviour {
 
 		(buf.GetComponent<CellNav>() as CellNav).setColor(FacColor);
 		(buf.GetComponent<CellNav>() as CellNav).setfac(this);
-		(buf.GetComponent<CellNav>() as CellNav).food = food;
+		(buf.GetComponent<CellNav>() as CellNav).food = food | 10;
 		members.Add(buf);
-
+		control.addcell(buf);
 	}
 
 

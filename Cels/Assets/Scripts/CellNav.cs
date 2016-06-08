@@ -13,13 +13,14 @@ public class CellNav : MonoBehaviour {
 	Vector3 last;
 	public float sub = 10;
 	public float dist = 0;
+	public ArrayList enemy;
 
 	//CODE--------------------------------------------------------------------------------------------------
 
 	// Update is called once per frame.
 	void Update () {
 
-		transform.FindChild("Cylinder").transform.localScale = new Vector3(food,food,food);
+		transform.FindChild("Cylinder").transform.localScale = new Vector3(.3f * food,.3f *food,.3f *food);
 		GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2;
 
 		transform.FindChild("Cylinder").GetComponent<Renderer>().material.color = color;
@@ -27,9 +28,9 @@ public class CellNav : MonoBehaviour {
 
 		//subtracts food for every time the $dist reaches the value $sub.
 		if(food > 0)
-		dist += (int)Vector3.Distance(transform.position,last) * .000000001f; 
+		dist += (int)Vector3.Distance(transform.position,last) * .0001f; 
 
-		Debug.Log (dist);
+
 
 		if(sub < dist){
 			food -= 1;
@@ -41,9 +42,12 @@ public class CellNav : MonoBehaviour {
 		if(goal != null){
 			agent = GetComponent<NavMeshAgent>();
 			agent.destination = goal.transform.position;
+		}else{
+
+			transform.position +=new Vector3(Random.Range(-0.1f, 0.1f), 0, Random.Range(-0.1f, 0.1f));
 		}
 
-
+		transform.position += stearAway();
 
 		//if the user clicks on the cell it will flip the $watching to control the Main Camera. 
 		if(watching){
@@ -60,7 +64,7 @@ public class CellNav : MonoBehaviour {
 
 		//The if statement that allow replication.
 		if(food >= fac.foodbound){
-			food /=2;
+			food /= 2;
 			fac.addMember(this.transform.position,food/2);
 			transform.FindChild("Cylinder").transform.localScale = new Vector3(.5f ,.5f,.5f);
 		}
@@ -88,7 +92,7 @@ public class CellNav : MonoBehaviour {
 			other = null;
 			food++;
 
-			transform.FindChild("Cylinder").transform.localScale = new Vector3(food,food,food);
+			transform.FindChild("Cylinder").transform.localScale = new Vector3(.3f *food,.3f *food,.3f *food);
 			GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2; 
 		
 
@@ -118,6 +122,32 @@ public class CellNav : MonoBehaviour {
 		
 		goal = target;
 		
+	}
+
+
+	public Vector3 stearAway(){
+		if(enemy.Count > 0){
+		Vector3 buff = new Vector3(0,0,0);
+
+		foreach(GameObject en in enemy){
+
+			Vector3 di = (this.transform.position) - (en.transform.position);
+			di.Normalize();
+			di /= Vector3.Distance(en.transform.position, this.transform.position);
+			buff += di;
+		}
+
+			if(enemy.Count > 0)
+			buff /= (float)enemy.Count;
+
+		buff *= -15;
+
+
+
+			return buff;
+		}
+
+		return new Vector3(0,0,0);
 	}
 
 	//----------------------------------------------------TODO-----------------------------------------------

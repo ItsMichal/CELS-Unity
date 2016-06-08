@@ -14,12 +14,17 @@ public class SimControl: MonoBehaviour {
 	public float spawnRate;
 	public long lastsec;
 
+
 	//factions
 	ArrayList fac = new ArrayList();
 	//food target
 	ArrayList foodList = new ArrayList();
+	//cells in sim
+	ArrayList pop = new ArrayList();
 
 	Component time;
+
+
 
 	void Start () {
 		time = UiTime.GetComponent<Text>();
@@ -34,7 +39,7 @@ public class SimControl: MonoBehaviour {
             //not sure if lighting problem or code problem
             Color fc = new Color(fcolors[i,0], fcolors[i,1], fcolors[i,2]);
 
-			fac.Add ( new Factions(i+"",fc,new Vector3(0,0,0),cells));
+			fac.Add ( new Factions(i+"",fc,new Vector3(0,0,0),cells,this));
 
 			//startsim();
 		}
@@ -80,6 +85,16 @@ public class SimControl: MonoBehaviour {
 
 		Vector3 foodpos = new Vector3(Random.Range(-29,29),0,Random.Range(-29,29));
 		foodList.Add(Instantiate(food, foodpos, Quaternion.identity)as GameObject);
+	}
+
+	public void addcell(GameObject cell){
+
+		pop.Add(cell);
+
+	}
+	public ArrayList mem(){
+
+		return pop;
 	}
 }
 //----------------------------------------------------TODO-----------------------------------------------
