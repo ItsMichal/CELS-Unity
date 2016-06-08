@@ -19,7 +19,7 @@ public class Factions : MonoBehaviour {
 		this.boids = boids;
 
 		for(int i = 0; i < 1; i++){
-			addMember(headQuartersloc);
+			addMember(headQuartersloc,15);
 		
 		}
 
@@ -57,15 +57,21 @@ public class Factions : MonoBehaviour {
 		targets = objects;
 	}
 
-	public void addMember(Vector3 loc){
+	public void addMember(Vector3 loc, int food){
 		GameObject buf = Instantiate(boids,loc,Quaternion.identity) as GameObject;
 
 		(buf.GetComponent<CellNav>() as CellNav).setColor(FacColor);
 		(buf.GetComponent<CellNav>() as CellNav).setfac(this);
-		//(buf.GetComponent<CellNav>() as CellNav).food = foodbound/2;
+		(buf.GetComponent<CellNav>() as CellNav).food = food;
 		members.Add(buf);
 
 	}
 
 
 }
+
+//----------------------------------------------------TODO-----------------------------------------------
+
+//+Traits control
+//+better values for food procesing
+//+

@@ -25,7 +25,7 @@ public class Move : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0)) {
 		
-
+					//Limts the camera from going out of the map.
 					if(mo.x <= 34 && mo.x >= -35)
 						if(mo.z <= 34 && mo.z >= -35)
 							target = Camera.main.ScreenToWorldPoint (Input.mousePosition);

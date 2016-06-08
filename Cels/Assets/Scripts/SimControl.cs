@@ -82,3 +82,8 @@ public class SimControl: MonoBehaviour {
 		foodList.Add(Instantiate(food, foodpos, Quaternion.identity)as GameObject);
 	}
 }
+//----------------------------------------------------TODO-----------------------------------------------
+   //+pause menu
+  //+UI
+ //+gene control
+//+
