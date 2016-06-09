@@ -14,6 +14,7 @@ public class CellNav : MonoBehaviour {
 	public float sub = 10;
 	public float dist = 0;
 	public ArrayList enemy;
+	public float spe = 0.2f;
 
 	//CODE--------------------------------------------------------------------------------------------------
 
@@ -40,14 +41,28 @@ public class CellNav : MonoBehaviour {
 
 		//when the cell has a goal it will set the cell as the target.
 		if(goal != null){
-			agent = GetComponent<NavMeshAgent>();
-			agent.destination = goal.transform.position;
+
+			//agent = GetComponent<NavMeshAgent>();
+			//agent.destination = goal.transform.position;
+			Vector3 bf = new Vector3(transform.position.x,transform.position.y,transform.position.z);
+			Vector3 stear = new Vector3(0,0,0);
+			bf -= goal.transform.position;
+			bf.Normalize();
+			stear += bf;
+			stear += stearAway();
+			stear.Normalize();
+			stear *= spe;
+
+			transform.position = -stear + transform.position;
+			//Debug.Log (stear.x +" " + stear.y);
+
+
 		}else{
 
 			transform.position +=new Vector3(Random.Range(-0.1f, 0.1f), 0, Random.Range(-0.1f, 0.1f));
 		}
 
-		transform.position += stearAway();
+
 
 		//if the user clicks on the cell it will flip the $watching to control the Main Camera. 
 		if(watching){
@@ -81,6 +96,8 @@ public class CellNav : MonoBehaviour {
 	//When collide with a object the program will see what the object it touched then apply the correct way to handle it.
 	void OnTriggerEnter(Collider other){
 
+		Debug.Log(other.gameObject.name);
+
 		//IF statment for food tag - Destroys the food then increases it internal consumption. 
 		if(other.gameObject.tag == "Food"){
 
@@ -96,7 +113,24 @@ public class CellNav : MonoBehaviour {
 			GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2; 
 		
 
+		}else if(other.gameObject.name.Equals("Boid(Clone)")){
+
+
+			if(other == goal)
+				goal = null;
+
+			food += other.GetComponent<CellNav>().food;
+
+			Destroy(other);
+			Destroy(other.gameObject);
+			other = null;
+
+
+			transform.FindChild("Cylinder").transform.localScale = new Vector3(.3f *food,.3f *food,.3f *food);
+			GetComponent<CapsuleCollider>().radius = transform.FindChild("Cylinder").transform.localScale.x/2;
 		}
+
+	 
 
 	}
 
@@ -115,6 +149,7 @@ public class CellNav : MonoBehaviour {
    //Helps the cell with loosing food for everytime it moves a set distence. 
 	public void start(){
 		last = this.transform.position;
+		gameObject.tag = "cell";
 	}
 
 	//setter for the $goal object 
@@ -130,17 +165,17 @@ public class CellNav : MonoBehaviour {
 		Vector3 buff = new Vector3(0,0,0);
 
 		foreach(GameObject en in enemy){
-
 			Vector3 di = (this.transform.position) - (en.transform.position);
 			di.Normalize();
-			di /= Vector3.Distance(en.transform.position, this.transform.position);
+				di /= (Vector3.Distance(en.transform.position, this.transform.position) != 0)? Vector3.Distance(en.transform.position, this.transform.position):1;
 			buff += di;
+
 		}
 
 			if(enemy.Count > 0)
 			buff /= (float)enemy.Count;
 
-		buff *= -15;
+		buff *= -10f;
 
 
 
@@ -148,6 +183,33 @@ public class CellNav : MonoBehaviour {
 		}
 
 		return new Vector3(0,0,0);
+	}
+
+
+	//add
+	public void nextgoal(ArrayList food){
+
+		if(food.Count > 0){
+		float dist = float.MaxValue;
+		GameObject clfo = food[0] as GameObject;
+		foreach(GameObject fo in food){
+
+
+			if(fo != null && Vector3.Distance(fo.transform.position,transform.position) < dist){
+
+					if(fo.name.Equals("Boid(Clone)") && fo.GetComponent<CellNav>().food < this.food){
+				dist = Vector3.Distance(fo.transform.position,transform.position);
+				clfo = fo;
+
+
+					}
+			}
+
+		}
+
+		goal = clfo;
+		}else{goal = null;}
+
 	}
 
 	//----------------------------------------------------TODO-----------------------------------------------

@@ -39,7 +39,7 @@ public class SimControl: MonoBehaviour {
             //not sure if lighting problem or code problem
             Color fc = new Color(fcolors[i,0], fcolors[i,1], fcolors[i,2]);
 
-			fac.Add ( new Factions(i+"",fc,new Vector3(0,0,0),cells,this));
+			fac.Add ( new Factions(i+"",fc,new Vector3(Random.Range(-5f, 5f), 0, Random.Range(-60f, 60f)),cells,this,Random.Range(0.01f,1f)));
 
 			//startsim();
 		}

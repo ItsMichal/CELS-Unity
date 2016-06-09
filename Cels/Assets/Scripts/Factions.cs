@@ -11,16 +11,17 @@ public class Factions : MonoBehaviour {
 	public SimControl control;
 	ArrayList targets = new ArrayList();
 	ArrayList members = new ArrayList();
+	float spe;
 
-
-	public Factions(string name,Color FacColor, Vector3 headQuartersloc,GameObject boids,SimControl s){
+	public Factions(string name,Color FacColor, Vector3 headQuartersloc,GameObject boids,SimControl s,float speed){
 
 		this.name = name;
 		this.FacColor = FacColor;
 		this.boids = boids;
 		this.control = s;
-		for(int i = 0; i < 1; i++){
-			addMember(headQuartersloc,10);
+		spe = speed;
+		for(int i = 0; i < 5; i++){
+			addMember(headQuartersloc + new Vector3(Random.Range(-10,10),0, Random.Range(-20,20)),Random.Range(10,20));
 		
 		}
 
@@ -29,38 +30,28 @@ public class Factions : MonoBehaviour {
 	public void Update (){
 
 		 enemy = control.mem();
+	
+
 		foreach(GameObject cel in members){
 			
 			CellNav cell = cel.GetComponent<CellNav>() as CellNav;
-			if(cell.goal == null && targets.Count >= 1){
 
-				GameObject f = targets[0] as GameObject;
-				float dist = Vector3.Distance(cel.transform.position,f.transform.position);
-				foreach(GameObject t in targets)
-				{
-					if(t != null && Vector3.Distance(cel.transform.position,(t as GameObject).transform.position) < dist){
 
-						f = t as GameObject;
-						dist = Vector3.Distance(cel.transform.position,(t as GameObject).transform.position);
-					}
-
-				}
-				
-				cell.setTarget(f);
-				targets.Remove(f);
-
-			}
-
-			//passing the enemys to the cell
+			//passing the enemys to the cell----------------------------------------------------
 			ArrayList buff = new ArrayList();
 			foreach(GameObject tar in enemy){
 
-				if(Vector3.Distance(tar.transform.position,cell.transform.position) < 20)
+				if(Vector3.Distance(tar.transform.position,cell.transform.position) < 20 && !members.Contains(tar) )
 					buff.Add(tar);
-
 			}
+			
 
 			cell.enemy = buff;
+
+			foreach(GameObject f in targets)
+				buff.Add(f);
+
+			cell.nextgoal(buff);
 				}
 
 	}
@@ -68,7 +59,9 @@ public class Factions : MonoBehaviour {
 	public void setTarget(ArrayList objects){
 
 		targets = objects;
+
 	}
+
 	public void setEnemys(ArrayList objects){
 
 		enemy = objects;
@@ -81,6 +74,7 @@ public class Factions : MonoBehaviour {
 		(buf.GetComponent<CellNav>() as CellNav).setColor(FacColor);
 		(buf.GetComponent<CellNav>() as CellNav).setfac(this);
 		(buf.GetComponent<CellNav>() as CellNav).food = food | 10;
+		(buf.GetComponent<CellNav>() as CellNav).spe = this.spe;
 		members.Add(buf);
 		control.addcell(buf);
 	}
