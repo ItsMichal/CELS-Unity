@@ -1,10 +1,11 @@
-﻿<Properties>
+﻿<Properties StartupItem="Cels.CSharp.Plugins.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CellNav.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Michals.cs">
     <Files>
-      <File FileName="Assets\Scripts\SimControl.cs" Line="42" Column="125" />
-      <File FileName="Assets\Scripts\Factions.cs" Line="24" Column="62" />
-      <File FileName="Assets\Scripts\Move.cs" Line="28" Column="51" />
+      <File FileName="Assets\Scripts\Michals.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SimControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Factions.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Move.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CellNav.cs" Line="204" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>

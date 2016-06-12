@@ -9,8 +9,8 @@ public class Factions : MonoBehaviour {
 	public int foodbound = 20;
 	public ArrayList enemy;
 	public SimControl control;
-	ArrayList targets = new ArrayList();
-	ArrayList members = new ArrayList();
+	public ArrayList targets = new ArrayList();
+	public ArrayList members = new ArrayList();
 	float spe;
 
 	public Factions(string name,Color FacColor, Vector3 headQuartersloc,GameObject boids,SimControl s,float speed){

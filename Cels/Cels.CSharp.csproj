@@ -57,12 +57,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -82,6 +76,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CellNav.cs" />
     <Compile Include="Assets\Scripts\Factions.cs" />
+    <Compile Include="Assets\Scripts\MichalsNewStuff\Cell.cs" />
+    <Compile Include="Assets\Scripts\MichalsNewStuff\Faction.cs" />
+    <Compile Include="Assets\Scripts\MichalsNewStuff\Flock.cs" />
+    <Compile Include="Assets\Scripts\MichalsNewStuff\Food.cs" />
+    <Compile Include="Assets\Scripts\MichalsNewStuff\Simulation.cs" />
     <Compile Include="Assets\Scripts\Move.cs" />
     <Compile Include="Assets\Scripts\SimControl.cs" />
   </ItemGroup>
