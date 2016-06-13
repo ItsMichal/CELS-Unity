@@ -34,7 +34,19 @@ public class Cell : MonoBehaviour {
     int height;
     int width;
 
-    public Cell(GameObject b, float x, float y, Faction faction, int ama, Cell copy, Simulation ast)
+    public static Cell Create(GameObject b, float x, float y, Faction faction, int ama, Cell copy, Simulation ast)
+    {
+        //Debug.Log("HERE");
+        Object foods = Resources.Load("boid");
+        //Debug.Log(foods);
+
+        GameObject nx = Instantiate(foods) as GameObject;
+        Cell u = nx.GetComponent<Cell>();
+        u.cCell(b,x,y,faction,ama,copy,ast);
+        return u;
+    }
+
+    public void cCell(GameObject b, float x, float y, Faction faction, int ama, Cell copy, Simulation ast)
     {
         tsa = ast;
         baseobj = b;
@@ -63,9 +75,19 @@ public class Cell : MonoBehaviour {
         this.mother = copy;
 
     }
-    
+    public static Cell Create(GameObject b, float x, float y, Faction faction, float speed, int re, int rod, int dis, Simulation ast)
+    {
+        //Debug.Log("HERE");
+        Object foods = Resources.Load("boid");
+        //Debug.Log(foods);
 
-    public Cell(GameObject b, float x, float y, Faction faction, float speed, int re, int rod, int dis, Simulation ast)
+        GameObject nx = Instantiate(foods) as GameObject;
+        Cell u = nx.GetComponent<Cell>();
+        u.cCell(b,x,y,faction,speed,re,rod,dis,ast);
+        return u;
+    }
+
+    public void cCell(GameObject b, float x, float y, Faction faction, float speed, int re, int rod, int dis, Simulation ast)
     {
         baseobj = b;
         tsa = ast;
@@ -89,10 +111,20 @@ public class Cell : MonoBehaviour {
         maxspeed = speed;
         this.re = re;
         this.maxdist = dis;
-
+            
     }
+    public static Cell Create(GameObject b, float x, float y, Faction faction, int[] s, Simulation ast)
+    {
+        //Debug.Log("HERE");
+        Object foods = Resources.Load("Boid");  
+        Debug.Log(foods);
 
-    public Cell(GameObject b, float x, float y, Faction faction, int[] s, Simulation ast)
+        GameObject nx = Instantiate(foods) as GameObject;
+        Cell u = nx.GetComponent<Cell>();
+        u.cCell(b,x,y,faction,s,ast);
+        return u;
+    }
+    public void cCell(GameObject b, float x, float y, Faction faction, int[] s, Simulation ast)
     {
         tsa = ast;
         baseobj = b;

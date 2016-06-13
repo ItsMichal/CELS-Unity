@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Faction  {
+public class Faction : ScriptableObject  {
     // Some Parameters
     public string nafme;
     public int fid;
@@ -10,7 +10,14 @@ public class Faction  {
     public ArrayList members = new ArrayList();
     public Cell big = null;
 
-    public Faction()
+    public static Faction Create()
+    {
+        Faction obj = ScriptableObject.CreateInstance<Faction>();
+        obj.cFaction();
+        return obj;
+    }
+
+    public void cFaction()
     {
         fid = -1;
         enemyfid = new int[1];
@@ -22,7 +29,15 @@ public class Faction  {
 	 * Constructor that will create a new factions but give it an ID.  
 	 * @param id
 	 */
-    public Faction(int id)
+
+    public static Faction Create(int id)
+    {
+        Faction obj = ScriptableObject.CreateInstance<Faction>();
+        obj.cFaction(id);
+        return obj;
+    }
+
+    public void cFaction(int id)
     {
         if (id != 0)
         {
@@ -43,7 +58,13 @@ public class Faction  {
 	 * @param id
 	 * @param color
 	 */
-    public Faction(int id, float color)
+    public static Faction Create(int id, float color)
+    {
+        Faction obj = ScriptableObject.CreateInstance<Faction>();
+        obj.cFaction(id, color);
+        return obj;
+    }
+    public void cFaction(int id, float color)
     {
         if (id != 0)
         {
@@ -67,7 +88,13 @@ public class Faction  {
 	 * @param color
 	 * @param enems
 	 */
-    public Faction(int id, float[] color, int[] enems)
+    public static Faction Create(int id, float[] color, int[] enems)
+    {
+        Faction obj = ScriptableObject.CreateInstance<Faction>();
+        obj.cFaction(id, color, enems);
+        return obj;
+    }
+    public void cFaction(int id, float[] color, int[] enems)
     {
         if (id != 0)
         {
@@ -105,7 +132,14 @@ public class Faction  {
 	 * @param enems
 	 * @param name
 	 */
-    public Faction(int id, float[] color, int[] enems, string name)
+    public static Faction Create(int id, float[] color, int[] enems, string name)
+    {
+        Faction obj = ScriptableObject.CreateInstance<Faction>();
+        obj.cFaction(id, color, enems, name);
+        return obj;
+    }
+
+    public void cFaction(int id, float[] color, int[] enems, string name)
     {
         if (id != 0)
         {

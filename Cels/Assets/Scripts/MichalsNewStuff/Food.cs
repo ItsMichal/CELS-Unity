@@ -15,12 +15,13 @@ public class Food : MonoBehaviour {
     public int height;
     public int width;
     public GameObject baseobj;
+    public static Object food;
 
-    public Food(GameObject tsa, float x, float y, int ratio)
+    public void instant(GameObject tsa, float x, float y, int ratio)
     {
         baseobj = tsa;
-        height = (int) baseobj.GetComponent<Collider>().bounds.size.x;
-        width = (int) baseobj.GetComponent<Collider>().bounds.size.y;
+        height = (int)baseobj.GetComponent<Collider>().bounds.size.x;
+        width = (int)baseobj.GetComponent<Collider>().bounds.size.y;
         acceleration = new Vector3(0, 0);
 
         // This is a new Vector3 method not yet implemented in JS
@@ -39,6 +40,23 @@ public class Food : MonoBehaviour {
         c1 = new Color(255, 50, 50);
         c2 = new Color(50, 255, 50);
         c3 = new Color(50, 50, 255);
+    }
+
+    void Awake()
+    {
+       
+        
+    }
+    public static Food Create(GameObject tsa, float x, float y, int ratio)
+    {
+       // Debug.Log("HERE");
+        Object foods = Resources.Load("food");
+        //Debug.Log(foods);
+
+        GameObject nx = Instantiate(foods) as GameObject;
+        Food u = nx.GetComponent<Food>();
+        u.instant(tsa,x,y,ratio);
+        return u;
     }
 
     public void run(ArrayList foods)
@@ -115,7 +133,7 @@ public class Food : MonoBehaviour {
 
 
         fill(cColor);
-        
+        Debug.Log(location);
         transform.Translate(location.x, location.y, 0);
         transform.Rotate(theta, 0,0);
         //if (this.tsa.n < 1)

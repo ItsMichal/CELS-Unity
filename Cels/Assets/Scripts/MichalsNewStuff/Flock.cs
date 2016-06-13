@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Flock {
+public class Flock : ScriptableObject {
     //TODO: Optimize Simulation/GameObject baseobj, make it so only 1 import is needed
     private Simulation tsa;
 	public ArrayList h;
@@ -17,7 +17,14 @@ public class Flock {
 	 * @param tsa
 	 * @param colors
 	 */
-    public Flock(GameObject sat, Color colors, Simulation sa)
+    public static Flock Create(GameObject sat, Color colors, Simulation sa)
+    {
+        Flock obj = ScriptableObject.CreateInstance<Flock>();
+        obj.cFlock(sat, colors, sa);
+        return obj;
+    }
+
+    public void cFlock(GameObject sat, Color colors, Simulation sa)
     {
         tsa = sa;
         baseobj = sat;
@@ -167,7 +174,7 @@ public class Flock {
             {
                 // System.out.println((j.am - (j.am%10))/10);
                 
-                addbea(new Cell(baseobj, j.location.x, j.location.y, j.faction, j.am / 2, j, tsa));
+                addbea(Cell.Create(baseobj, j.location.x, j.location.y, j.faction, j.am / 2, j, tsa));
                 j.am = j.am / 2;
             }
             if (j.am == 0)
@@ -184,7 +191,7 @@ public class Flock {
             {   
                 //TODO: Check this out
                 if ((int)Random.Range(0, ((Food) h[select]).ratio) == 1 && this.h.Count < 300)
-                    addBoid(new Food(baseobj, ((Food) h[select]).location.x,((Food) h[(select)]).location.y,
+                    addBoid(Food.Create(baseobj, ((Food) h[select]).location.x,((Food) h[(select)]).location.y,
                             ((Food) h[select]).ratio + (int) Random.Range(-5, 5)));
             }
         }

@@ -76,33 +76,34 @@ public class Simulation : MonoBehaviour {
         //make array
         
 
-        for (int i = 0; i < factions.Count; i++)
+        for (int i = 0; i < facst.Length; i++)
         {
             
             
-            factions.Add(new Faction(i + 1, fcolors[i], fenemies[i], fname[i]));
+            factions.Add(Faction.Create(i + 1, fcolors[i], fenemies[i], fname[i]));
         }
 
         // The initial point for the flock that is set to be random
         Color first = new Color(Random.Range(0,255), (255), Random.Range(0,255));
 
         // Instantiate a flock of
-        flock = new Flock(baseobj, first, this);
+        flock = Flock.Create(baseobj, first, this);
         // Add an initial set of boids into the system
         for (int i = 0; i < 69; i++)
         {
-            flock.addBoid(new Food(baseobj, width / 2, height / 2, 20));
+            flock.addBoid(Food.Create(baseobj, width / 2, height / 2, 20));
         }
+        Debug.Log(factions.Count);
         for (int k = 0; k < 4; k++)
         {
-            flock.addbea(new Cell(baseobj, width / 4, height / 4, (Faction) factions[0], facst[0], this));
-            flock.addbea(new Cell(baseobj, width - width / 4, height - height / 4, (Faction)factions[1], facst[1], this));
-            flock.addbea(new Cell(baseobj, width / 4, height - height / 4, (Faction)factions[2], facst[2], this));
-            flock.addbea(new Cell(baseobj, width - width / 4, height / 4, (Faction)factions[3], facst[3], this));
-            flock.addbea(new Cell(baseobj, width / 2, height - height / 4, (Faction)factions[4], facst[4], this));
-            flock.addbea(new Cell(baseobj, width / 2, height / 4, (Faction)factions[5], facst[5], this));
-            flock.addbea(new Cell(baseobj, width - width / 4, height / 2, (Faction)factions[6], facst[6], this));
-            flock.addbea(new Cell(baseobj, width / 4, height / 2, (Faction)factions[7], facst[7], this));
+            flock.addbea(Cell.Create(baseobj, width / 4, height / 4, (Faction) factions[0], facst[0], this));
+            flock.addbea(Cell.Create(baseobj, width - width / 4, height - height / 4, (Faction)factions[1], facst[1], this));
+            flock.addbea(Cell.Create(baseobj, width / 4, height - height / 4, (Faction)factions[2], facst[2], this));
+            flock.addbea(Cell.Create(baseobj, width - width / 4, height / 4, (Faction)factions[3], facst[3], this));
+            flock.addbea(Cell.Create(baseobj, width / 2, height - height / 4, (Faction)factions[4], facst[4], this));
+            flock.addbea(Cell.Create(baseobj, width / 2, height / 4, (Faction)factions[5], facst[5], this));
+            flock.addbea(Cell.Create(baseobj, width - width / 4, height / 2, (Faction)factions[6], facst[6], this));
+            flock.addbea(Cell.Create(baseobj, width / 4, height / 2, (Faction)factions[7], facst[7], this));
 
         }
 
